@@ -5,8 +5,8 @@ function Card({ item }) {
     <>
       <div key={item.id}>
         <img src={item.itemPicture} alt={item.ItemName} style={{width:100}}/>
-        <div>{item.itemName}</div>
-        <div>{item.itemAmount}</div>
+        <div>Item name: {item.itemName}</div>
+        <div>Amount: {item.itemAmount}</div>
       </div>
     </>
   );
