@@ -18,5 +18,6 @@ app.use(
   );
 
 // Routers
+app.use("/items", require("./routes/ItemsRoute"));
 
 module.exports = app;
