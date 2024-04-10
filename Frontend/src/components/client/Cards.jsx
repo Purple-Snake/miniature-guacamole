@@ -1,15 +1,13 @@
-import { useEffect } from "react";
-import { default as placeHolderData } from "../data/placeholderData.json";
+import { useContext } from "react";
+import { ListingContext } from "../../context/ListingContext";
 import Card from "./Card";
 
 function Cards() {
-  useEffect(() => {
-    console.log(placeHolderData);
-  }, []);
+  const { listedItems } = useContext(ListingContext);
   return (
     <>
       <div>Hello</div>
-      {placeHolderData.map((items) => (
+      {listedItems.map((items) => (
         <div key={items.id}>
           <Card item={items} />
         </div>
