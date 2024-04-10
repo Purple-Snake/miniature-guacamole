@@ -6,7 +6,7 @@ const itemOnSaleSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    ItemName:{
+    itemName:{
         type: String,
         required: true
     },

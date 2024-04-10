@@ -33,7 +33,7 @@ router.post("/postItem", async (req, res) => {
 
 router.get("/getItems", async (req, res) => {
     try {
-        const postedItems = ItemsOnSale.find();
+        const postedItems = await ItemsOnSale.find();
         res.status(200).json(postedItems);
     } catch (error) {
         console.log(error);
