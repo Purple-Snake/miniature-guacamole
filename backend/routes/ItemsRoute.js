@@ -4,8 +4,6 @@ const ItemsOnSale = require("../models/itemsOnSale")
 
 router.post("/postItem", async (req, res) => {
     try {
-        //logs for debuging
-        console.log("post started");
         const { itemName, itemAmount } = req.body;
 
         if(!itemName) {
@@ -17,12 +15,11 @@ router.post("/postItem", async (req, res) => {
 
         let id = createId();
 
-        const newItem = await ItemsOnSale.create({
+        await ItemsOnSale.create({
             id: id,
             itemName: itemName.trim(),
             itemAmount: itemAmount,
         })
-        console.log(newItem);
 
         return res.status(200).json({message: "item created"})
         
