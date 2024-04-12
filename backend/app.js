@@ -19,5 +19,6 @@ app.use(
 
 // Routers
 app.use("/items", require("./routes/ItemsRoute"));
+app.use("/users", require("./routes/userRoute"))
 
 module.exports = app;
