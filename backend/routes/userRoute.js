@@ -66,7 +66,7 @@ router.get("/login", async (req, res) => {
     .send();
 });
 
-router("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   res
     .cookie("token", "", {
       httpOnly: true,
