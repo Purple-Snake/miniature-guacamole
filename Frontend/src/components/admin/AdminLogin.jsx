@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 
 function AdminLogin() {
-  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
   async function login(e) {
@@ -10,13 +10,13 @@ function AdminLogin() {
 
     try {
       const registerData = {
-        email,
+        userName,
         password,
       };
 
-      await axios.post("#", registerData).then((response) => {
+      await axios.post("http://localhost:3000/users/login", registerData).then((response) => {
         if (response.status === 200) {
-          return (window.location.href = "http://localhost:5173/");
+          return (window.location.href = "http://localhost:5173/adminNav");
         }
       });
     } catch (error) {
@@ -29,14 +29,14 @@ function AdminLogin() {
         <b>Log in</b>
       </h1>
       <form onSubmit={login}>
-        <label htmlFor="emailInput">Email</label>
+        <label htmlFor="emailInput">User name</label>
         <br />
         <input
-          type="email"
-          id="emailInput"
+          type="text"
+          id="userNameInput"
           className="loginInput"
-          onChange={(e) => setEmail(e.target.value)}
-          defaultValue={email}
+          onChange={(e) => setUserName(e.target.value)}
+          defaultValue={userName}
           required
         />
         <br />
