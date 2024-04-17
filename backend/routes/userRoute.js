@@ -69,7 +69,6 @@ router.post("/login", async (req, res) => {
       },
       process.env.JWT_Secret
     );
-    console.log(token);
 
     res
       .cookie("token", token, {
