@@ -1,14 +1,30 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ListingContext } from "../../../context/ListingContext";
+import axios from "axios"
 
 function EditCard({ item }) {
   const [ editMode, setEditMode ] = useState(false);
   const [ itemName, setItemName ] = useState(item.itemName);
   const [ itemAmount, setItemAmount] = useState(item.itemAmount);
 
-  function handleUpdate() {
+  const { getListedItems } = useContext(ListingContext)
+
+  async function handleUpdate(objectId) {
     setEditMode(false)
-    console.log(itemName, itemAmount);
+
+    let updatedData = {
+      _id: objectId,
+      itemName: itemName,
+      itemAmount: itemAmount,
+    }
+
+    try {
+      await axios.patch("http://localhost:3000/items/updateItem", updatedData)
+      getListedItems()
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -25,7 +41,7 @@ function EditCard({ item }) {
             <input type="number" defaultValue={item.itemAmount} onChange={(e) => setItemAmount(e.target.value)}/>
           </div>
           <div>
-            <button onClick={() => handleUpdate()}>
+            <button onClick={() => handleUpdate(item._id)}>
               <img src="" alt="Done" />
             </button>
           </div>

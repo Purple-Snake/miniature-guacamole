@@ -22,7 +22,7 @@ export const ListingContextProvider = ({ children }) => {
         getListedItems()
     }, [])
 
-    const contextValue = {listedItems};
+    const contextValue = {listedItems, getListedItems};
     return (<ListingContext.Provider value={contextValue}>{children}</ListingContext.Provider>);
 }
 
