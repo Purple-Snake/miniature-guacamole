@@ -6,22 +6,30 @@ router.post("/postItem", async (req, res) => {
   try {
     const { itemName, itemAmount } = req.body;
 
-    if (!itemName) {
-      res.status(400).json({ errorMessage: "Item name required." });
-    }
-    if (!itemAmount) {
-      res.status(400).json({ errorMessage: "Item amount required." });
-    }
+    const token = req.cookies.token;
 
-    let id = createId();
+    JWT.verify(token, process.env.JWT_Secret, async (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ errorMessage: "Invalid token" });
+      }
 
-    await ItemsOnSale.create({
-      id: id,
-      itemName: itemName.trim(),
-      itemAmount: itemAmount,
+      if (!itemName) {
+        res.status(400).json({ errorMessage: "Item name required." });
+      }
+      if (!itemAmount) {
+        res.status(400).json({ errorMessage: "Item amount required." });
+      }
+
+      let id = createId();
+
+      await ItemsOnSale.create({
+        id: id,
+        itemName: itemName.trim(),
+        itemAmount: itemAmount,
+      });
+
+      return res.status(200).json({ message: "item created" });
     });
-
-    return res.status(200).json({ message: "item created" });
   } catch (error) {
     console.log(error);
   }
@@ -59,6 +67,26 @@ router.patch("/updateItem", async (req, res) => {
       );
 
       res.status(200).json({ message: "Item updated successfully" });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/deleteItem/:id", async (req, res) => {
+  try {
+    const ItemObjectId = req.params.id;
+
+    const token = req.cookies.token;
+
+    JWT.verify(token, process.env.JWT_Secret, async (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ errorMessage: "Invalid token" });
+      }
+
+      await ItemsOnSale.findOneAndDelete({ _id: ItemObjectId});
+
+      res.status(200).json({ message: "Item deleted successfully" });
     });
   } catch (error) {
     console.log(error);

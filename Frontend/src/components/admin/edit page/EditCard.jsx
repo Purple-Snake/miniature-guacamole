@@ -27,6 +27,17 @@ function EditCard({ item }) {
     }
   }
 
+  async function handleDelete(objectId) {   
+    try {
+      await axios.delete(
+        `http://localhost:3000/items/deleteItem/${objectId}`
+      );
+      getListedItems();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       {editMode ? (
@@ -59,7 +70,10 @@ function EditCard({ item }) {
           </div>
           <div>
             <button onClick={() => setEditMode(true)}>
-              <img src="" alt="Edit" />
+              <img src="#" alt="Edit" />
+            </button>
+            <button onClick={() => handleDelete(item._id)}>
+              <img src="#" alt="Delete" />
             </button>
           </div>
         </>
