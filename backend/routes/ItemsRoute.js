@@ -4,7 +4,7 @@ const JWT = require("jsonwebtoken");
 
 router.post("/postItem", async (req, res) => {
   try {
-    const { name, amount, type, quality, category, origin, price} = req.body;
+    const { name, amount, type, quality, category, origin, price } = req.body;
 
     const token = req.cookies.token;
 
@@ -15,40 +15,34 @@ router.post("/postItem", async (req, res) => {
 
       if (!name) {
         res.status(400).json({ errorMessage: "Item name required." });
-      }
-      if (!amount) {
+      } else if (!amount) {
         res.status(400).json({ errorMessage: "Item amount required." });
-      }
-      if(!type) {
+      } else if (!type) {
         res.status(400).json({ errorMessage: "Item type required." });
-      }
-      if(!quality) {
+      } else if (!quality) {
         res.status(400).json({ errorMessage: "Item quality required." });
-      }
-      if(!category) {
+      } else if (!category) {
         res.status(400).json({ errorMessage: "Item category required." });
-      }
-      if(!origin) {
+      } else if (!origin) {
         res.status(400).json({ errorMessage: "Item origin required." });
-      }
-      if(!price) {
+      } else if (!price) {
         res.status(400).json({ errorMessage: "Item price required." });
+      } else {
+        let id = createId();
+
+        await ItemsOnSale.create({
+          id: id,
+          name: name.trim(),
+          amount: amount,
+          type: type.trim(),
+          quality: quality.trim(),
+          category: category.trim(),
+          origin: origin.trim(),
+          price: price,
+        });
+
+        return res.status(200).json({ message: "item created" });
       }
-
-      let id = createId();
-
-      await ItemsOnSale.create({
-        id: id,
-        name: name.trim(),
-        amount: amount,
-        type: type.trim(),
-        quality: quality.trim(),
-        category: category.trim(),
-        origin: origin.trim(),
-        price: price,
-      });
-
-      return res.status(200).json({ message: "item created" });
     });
   } catch (error) {
     console.log(error);
@@ -104,7 +98,7 @@ router.delete("/deleteItem/:id", async (req, res) => {
         return res.status(401).json({ errorMessage: "Invalid token" });
       }
 
-      await ItemsOnSale.findOneAndDelete({ _id: ItemObjectId});
+      await ItemsOnSale.findOneAndDelete({ _id: ItemObjectId });
 
       res.status(200).json({ message: "Item deleted successfully" });
     });

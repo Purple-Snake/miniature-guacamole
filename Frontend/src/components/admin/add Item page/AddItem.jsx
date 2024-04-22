@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 
 function AddItem() {
   const [itemName, setItemName] = useState("");
@@ -10,20 +10,32 @@ function AddItem() {
   const [itemOrigin, setItemOrigin] = useState("");
   const [itemPrice, setItemPrice] = useState(0);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  const [errorMessage, setErrorMessage] = useState("")
+  const [errorMessageState, setErrorMessageState] = useState(false)
 
-    const formData = {
-      name: itemName,
-      amount: itemAmount,
-      type: itemType,
-      quality: itemQuality, 
-      category: itemCategory,
-      origin: itemOrigin,
-      price: itemPrice,
+  async function handleSubmit(e) {
+    try {
+      e.preventDefault();
+
+      if (itemType == "" || itemType == "----") {
+        setErrorMessage("Need to select item type")
+        setErrorMessageState(true)
+      }
+
+      const formData = {
+        name: itemName,
+        amount: itemAmount,
+        type: itemType,
+        quality: itemQuality,
+        category: itemCategory,
+        origin: itemOrigin,
+        price: itemPrice,
+      };
+
+      await axios.post("http://localhost:3000/items/postItem", formData);
+    } catch (error) {
+      console.log(error);
     }
-    
-    await axios.post("http://localhost:3000/items/postItem", formData)
   }
   return (
     <>
@@ -90,6 +102,9 @@ function AddItem() {
           <input type="submit" id="submit" />
         </div>
       </form>
+      <div>
+        {errorMessage}
+      </div>
     </>
   );
 }
