@@ -6,13 +6,28 @@ const itemOnSaleSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    itemName:{
+    name:{
         type: String,
         required: true
     },
-    itemAmount:{
+    amount:{
         type: Number,
         required: true
+    },
+    type: {
+        type: String
+    },
+    quality: {
+        type: String,
+    },
+    category: {
+        type: String,
+    },
+    origin: {
+        type: String,
+    },
+    price: {
+        type: Number,
     }
 });
 

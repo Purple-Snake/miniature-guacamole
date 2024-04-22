@@ -5,6 +5,7 @@ import MainPage from "./components/client/MainPage";
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminNav from "./components/admin/AdminNav";
 import EditPage from "./components/admin/edit page/EditPage";
+import AddItem from "./components/admin/add Item page/AddItem";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import axios from "axios"
@@ -24,6 +25,7 @@ function App() {
             <>
               <Route path="/adminNav" element={<AdminNav/>}/>
               <Route path="/edit" element={<EditPage/>} />
+              <Route path="/createItem" element={<AddItem/>} />
             </>
           )}
         </Routes>

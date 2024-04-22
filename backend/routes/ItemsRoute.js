@@ -4,7 +4,7 @@ const JWT = require("jsonwebtoken");
 
 router.post("/postItem", async (req, res) => {
   try {
-    const { itemName, itemAmount } = req.body;
+    const { name, amount, type, quality, category, origin, price} = req.body;
 
     const token = req.cookies.token;
 
@@ -13,19 +13,39 @@ router.post("/postItem", async (req, res) => {
         return res.status(401).json({ errorMessage: "Invalid token" });
       }
 
-      if (!itemName) {
+      if (!name) {
         res.status(400).json({ errorMessage: "Item name required." });
       }
-      if (!itemAmount) {
+      if (!amount) {
         res.status(400).json({ errorMessage: "Item amount required." });
+      }
+      if(!type) {
+        res.status(400).json({ errorMessage: "Item type required." });
+      }
+      if(!quality) {
+        res.status(400).json({ errorMessage: "Item quality required." });
+      }
+      if(!category) {
+        res.status(400).json({ errorMessage: "Item category required." });
+      }
+      if(!origin) {
+        res.status(400).json({ errorMessage: "Item origin required." });
+      }
+      if(!price) {
+        res.status(400).json({ errorMessage: "Item price required." });
       }
 
       let id = createId();
 
       await ItemsOnSale.create({
         id: id,
-        itemName: itemName.trim(),
-        itemAmount: itemAmount,
+        name: name.trim(),
+        amount: amount,
+        type: type.trim(),
+        quality: quality.trim(),
+        category: category.trim(),
+        origin: origin.trim(),
+        price: price,
       });
 
       return res.status(200).json({ message: "item created" });
