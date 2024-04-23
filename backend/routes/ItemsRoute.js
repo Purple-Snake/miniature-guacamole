@@ -60,7 +60,7 @@ router.get("/getItems", async (req, res) => {
 
 router.patch("/updateItem", async (req, res) => {
   try {
-    const { _id, itemName, itemAmount } = req.body;
+    const { _id, name, amount, type, quality, category, origin, price } = req.body;
 
     const token = req.cookies.token;
 
@@ -73,8 +73,13 @@ router.patch("/updateItem", async (req, res) => {
         { _id: _id },
         {
           $set: {
-            itemName: itemName.trim(),
-            itemAmount: itemAmount,
+            name: name.trim(),
+            amount: amount,
+            type: type.trim(),
+            quality: quality.trim(),
+            category: category.trim(),
+            origin: origin.trim(),
+            price: price,
           },
         },
         { new: true }
