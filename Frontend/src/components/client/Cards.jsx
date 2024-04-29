@@ -3,11 +3,11 @@ import { ListingContext } from "../../context/ListingContext";
 import Card from "./Card";
 
 function Cards() {
-  const { listedItems } = useContext(ListingContext);
+  const { filteredItems } = useContext(ListingContext);
   return (
     <>
       <div>Hello</div>
-      {listedItems.map((items) => (
+      {filteredItems.map((items) => (
         <div key={items.id}>
           <Card item={items} />
         </div>
