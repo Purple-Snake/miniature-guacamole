@@ -8,6 +8,7 @@ export const ListingContext = createContext();
 export const ListingContextProvider = ({ children }) => {
     const [listedItems, setListedItems] = useState([])
     const [query, setQuery] = useState("")
+    const [selectedFilter, setSelectedFilter] = useState("")
 
     async function getListedItems() {
         try {
@@ -24,10 +25,10 @@ export const ListingContextProvider = ({ children }) => {
     }, [])
 
     const filteredItems = listedItems.filter((item) => {
-        return item.name.toLowerCase().includes(query.toLowerCase())
+        return item.type.includes(selectedFilter) && item.name.toLowerCase().includes(query.toLowerCase())
     })
 
-    const contextValue = {listedItems, getListedItems, setQuery, filteredItems};
+    const contextValue = {listedItems, getListedItems, setQuery, setSelectedFilter, filteredItems};
     return (<ListingContext.Provider value={contextValue}>{children}</ListingContext.Provider>);
 }
 
