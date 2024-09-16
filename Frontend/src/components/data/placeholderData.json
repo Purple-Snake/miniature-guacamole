@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "itemName": "Item 1",
+        "itemAmount": 5,
+        "itemPicture": "../../public/pictures/diamond-sword.png"
+    },
+    {
+        "id": 2,
+        "itemName": "Item 2",
+        "itemAmount": 2,
+        "itemPicture": "../../public/pictures/diamond-sword.png"
+    }
+]
